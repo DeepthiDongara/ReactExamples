@@ -1,0 +1,83 @@
+/* Container for the grid */
+.beverages-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Always 4 columns */
+  gap: 1.5rem; /* spacing between cards */
+}
+
+/* Beverages card */
+.beverages-card {
+  transition: transform 0.2s ease;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background: #fff;
+}
+
+.beverages-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Image */
+.beverages-image {
+  height: 200px;
+  object-fit: cover;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+/* Card body */
+.beverages-card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.beverages-name {
+  font-size: 1.1rem;
+  color: #2c3e50;
+}
+
+.beverages-desc {
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+.beverages-price {
+  color: #e74c3c;
+  font-weight: 600;
+}
+
+/* Add button */
+.beverages-add-btn {
+  background: #43e97b;
+  border: none;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.beverages-add-btn:hover {
+  background: #2ecc71;
+}
+
+/* Empty placeholders so layout doesn't shrink */
+.empty-card {
+  visibility: hidden; /* takes space but not visible */
+}
+
+/* Pagination wrapper */
+.pagination-wrapper button {
+  min-width: 45px;
+  font-weight: 500;
+}
+
+/* Responsive tweaks */
+@media (max-width: 992px) {
+  .beverages-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 per row on tablets */
+  }
+}
+
+@media (max-width: 576px) {
+  .beverages-grid {
+    grid-template-columns: 1fr; /* 1 per row on mobile */
+  }
+}
