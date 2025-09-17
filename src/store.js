@@ -379,7 +379,7 @@ const user = state.users.find(
         localStorage.setItem("currentUser", JSON.stringify(user));
         state.error = null;
       } else {
-        state.error = "Invalid email or password";
+        state.error = "Invalid username or password";
       }
     },
     logout: (state) => {

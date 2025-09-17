@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "./signup.css";
 import { register, clearError } from "./store";
+import { Link } from "react-router-dom"; 
 // ✅ import from store.js
 
 function SignUp() {
@@ -119,8 +120,8 @@ function SignUp() {
         </form>
 
         <div className="login-link">
-          Already have an account? <a href="/signin">Log In</a>
-        </div>
+  Already have an account? <Link to="/signin">Log In</Link>
+</div>
       </div>
     </div>
   );

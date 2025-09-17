@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom"; // 👈 added useLocation
 import { useDispatch, useSelector } from "react-redux";
 import { login, clearError } from "./store"; // ✅ import from store.js
+import { Link } from "react-router-dom"; 
 import "./signin.css"; // Use the same styling as signup page
 
 function SignIn() {
@@ -71,8 +72,8 @@ function SignIn() {
         </form>
 
         <div className="login-link">
-          Don&apos;t have an account? <a href="/signup">Sign Up</a>
-        </div>
+  Don&apos;t have an account? <Link to="/signup">Sign Up</Link>
+</div>
       </div>
     </div>
   );
