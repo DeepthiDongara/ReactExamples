@@ -1,53 +1,29 @@
-// Navbar.jsx
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { logout } from "./store"; // ✅ use logout from Redux
+import { logout } from "./store";
 import "./navbar.css";
 
 const products = [
-  {
-    id: 1,
-    title: "Organic Vegetables",
-    image: "https://images.pexels.com/photos/1211887/pexels-photo-1211887.jpeg?auto=compress&cs=tinysrgb&w=600",
-    link: "/veg",
-  },
-  {
-    id: 2,
-    title: "Fresh Meat",
-    image: "https://images.pexels.com/photos/65175/pexels-photo-65175.jpeg?auto=compress&cs=tinysrgb&w=600",
-    link: "/nonveg",
-  },
-  {
-    id: 3,
-    title: "Delicious Desserts",
-    image: "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=600",
-    link: "/desserts",
-  },
-  {
-    id: 4,
-    title: "Cool Beverages",
-    image: "https://images.pexels.com/photos/4113664/pexels-photo-4113664.jpeg?auto=compress&cs=tinysrgb&w=600",
-    link: "/beverages",
-  },
+  { id: 1, title: "Organic Vegetables", image: "https://images.pexels.com/photos/1211887/pexels-photo-1211887.jpeg?auto=compress&cs=tinysrgb&w=600", link: "/veg" },
+  { id: 2, title: "Fresh Meat", image: "https://images.pexels.com/photos/65175/pexels-photo-65175.jpeg?auto=compress&cs=tinysrgb&w=600", link: "/nonveg" },
+  { id: 3, title: "Delicious Desserts", image: "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=600", link: "/desserts" },
+  { id: 4, title: "Cool Beverages", image: "https://images.pexels.com/photos/4113664/pexels-photo-4113664.jpeg?auto=compress&cs=tinysrgb&w=600", link: "/beverages" },
 ];
 
 function Navbar() {
   const cartItems = useSelector((state) => state.cart || []);
-  const cartItemCount = cartItems.reduce(
-    (total, item) => total + (item.quantity || 0),
-    0
-  );
-
-  const currentUser = useSelector((state) => state.auth.currentUser); // ✅ from Redux
+  const cartItemCount = cartItems.reduce((total, item) => total + (item.quantity || 0), 0);
+  const currentUser = useSelector((state) => state.auth.currentUser);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [searchQuery, setSearchQuery] = useState("");
   const [showDrawer, setShowDrawer] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false); // ✅ Mobile toggle
 
   const handleLogout = () => {
-    dispatch(logout()); // ✅ Redux logout
+    dispatch(logout());
     setShowDrawer(false);
     navigate("/signin");
   };
@@ -58,6 +34,11 @@ function Navbar() {
       <div className="topbar">
         <Link className="brand" to="/">🛒 FreshGo</Link>
 
+        {/* Hamburger for mobile */}
+        <span className="menu-toggle" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+          &#9776;
+        </span>
+
         {/* Search Bar */}
         <div className="search-container">
           <input
@@ -67,30 +48,24 @@ function Navbar() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-
           {searchQuery && (
             <div className="search-results">
               {products
-                .filter((p) =>
-                  p.title.toLowerCase().includes(searchQuery.toLowerCase())
-                )
+                .filter((p) => p.title.toLowerCase().includes(searchQuery.toLowerCase()))
                 .map((p) => (
                   <div
                     key={p.id}
                     className="search-item"
                     onClick={() => {
                       navigate(p.link);
-                      setSearchQuery(""); // clear search after click
+                      setSearchQuery("");
                     }}
                   >
                     <img src={p.image} alt={p.title} />
                     <span>{p.title}</span>
                   </div>
                 ))}
-
-              {products.filter((p) =>
-                p.title.toLowerCase().includes(searchQuery.toLowerCase())
-              ).length === 0 && (
+              {products.filter((p) => p.title.toLowerCase().includes(searchQuery.toLowerCase())).length === 0 && (
                 <div className="no-results">No products found</div>
               )}
             </div>
@@ -100,11 +75,9 @@ function Navbar() {
         {/* Top right */}
         <div className="top-right">
           <Link to="/cart" className="cart-link">
-            🛒 Cart{" "}
-            {cartItemCount > 0 && <span className="cart-badge">{cartItemCount}</span>}
+            🛒 Cart {cartItemCount > 0 && <span className="cart-badge">{cartItemCount}</span>}
           </Link>
 
-          {/* Profile / Sign In */}
           <button className="profile-btn" onClick={() => setShowDrawer(true)}>
             👤 {currentUser ? "Account" : "Sign In"}
           </button>
@@ -113,7 +86,7 @@ function Navbar() {
 
       {/* Category menu */}
       <nav className="category-nav">
-        <ul>
+        <ul className={mobileMenuOpen ? "show" : ""}>
           <li><Link to="/">🏠 Home</Link></li>
           <li><Link to="/veg">🥦 Veg</Link></li>
           <li><Link to="/nonveg">🍗 Non-Veg</Link></li>
@@ -125,7 +98,7 @@ function Navbar() {
         </ul>
       </nav>
 
-      {/* Flipkart style drawer */}
+      {/* Drawer */}
       {showDrawer && (
         <>
           <div className="drawer-overlay" onClick={() => setShowDrawer(false)}></div>
@@ -134,35 +107,14 @@ function Navbar() {
             {currentUser ? (
               <>
                 <h3>👋 Hello, {currentUser.username}</h3>
-                <Link
-                  to="/orders"
-                  className="drawer-item"
-                  onClick={() => setShowDrawer(false)}
-                >
-                  📦 My Orders
-                </Link>
-
-                <button onClick={handleLogout} className="drawer-item logout-btn">
-                  🚪 Logout
-                </button>
+                <Link to="/orders" className="drawer-item" onClick={() => setShowDrawer(false)}>📦 My Orders</Link>
+                <button onClick={handleLogout} className="drawer-item logout-btn">🚪 Logout</button>
               </>
             ) : (
               <>
                 <h3>Welcome 👋</h3>
-                <Link
-                  to="/signin"
-                  className="drawer-item highlight"
-                  onClick={() => setShowDrawer(false)}
-                >
-                  🔑 Log In
-                </Link>
-                <Link
-                  to="/signup"
-                  className="drawer-item"
-                  onClick={() => setShowDrawer(false)}
-                >
-                  ✍️ Sign Up
-                </Link>
+                <Link to="/signin" className="drawer-item highlight" onClick={() => setShowDrawer(false)}>🔑 Log In</Link>
+                <Link to="/signup" className="drawer-item" onClick={() => setShowDrawer(false)}>✍️ Sign Up</Link>
               </>
             )}
           </div>

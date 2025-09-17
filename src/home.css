@@ -97,6 +97,7 @@
 
 
 
+
 /* ================= Carousel ================= */
 .carousel-section {
   padding: 60px 10%;
@@ -618,4 +619,109 @@ body {
   color: #333;
   font-family: 'Poppins', sans-serif;
   
+}
+
+/* ====== MAIN HEADINGS (Bigger & Bold) ====== */
+.hero-text h1 {
+  font-size: 3rem;        /* Big welcome heading */
+  font-weight: 800;       /* Extra bold */
+  line-height: 1.2;
+}
+
+.section-title {
+  font-size: 2.5rem;      /* Section titles like Our Products */
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.carousel-content h2 {
+  font-size: 1.8rem;      /* Carousel headings */
+  font-weight: 700;
+}
+
+.product-card h3 {
+  font-size: 1.4rem;      /* Product titles */
+  font-weight: 700;
+}
+
+.offer-overlay h3 {
+  font-size: 1.6rem;      /* Offer titles */
+  font-weight: 700;
+}
+
+.stat-card h2 {
+  font-size: 2.5rem;      /* Numbers in stats */
+  font-weight: 800;
+}
+
+.testimonials-section h2,
+.download-section h2,
+.footer h2 {
+  font-size: 2.2rem;      /* Other section titles */
+  font-weight: 700;
+}
+
+/* ====== Responsive (for mobile & tablets) ====== */
+@media (max-width: 768px) {
+  .hero-text h1 {
+    font-size: 2.2rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .carousel-content h2 {
+    font-size: 1.5rem;
+  }
+
+  .product-card h3 {
+    font-size: 1.2rem;
+  }
+
+  .offer-overlay h3 {
+    font-size: 1.3rem;
+  }
+
+  .stat-card h2 {
+    font-size: 2rem;
+  }
+
+  .testimonials-section h2,
+  .download-section h2,
+  .footer h2 {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-text h1 {
+    font-size: 1.8rem;
+  }
+
+  .section-title {
+    font-size: 1.6rem;
+  }
+
+  .carousel-content h2 {
+    font-size: 1.2rem;
+  }
+
+  .product-card h3 {
+    font-size: 1rem;
+  }
+
+  .offer-overlay h3 {
+    font-size: 1.1rem;
+  }
+
+  .stat-card h2 {
+    font-size: 1.6rem;
+  }
+
+  .testimonials-section h2,
+  .download-section h2,
+  .footer h2 {
+    font-size: 1.4rem;
+  }
 }

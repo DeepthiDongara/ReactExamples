@@ -1,9 +1,44 @@
 /* Container for the grid */
+/* Make the parent container full-width and center the grid */
+.container {
+  max-width: 1200px; /* limits max width on large screens */
+  margin: 0 auto;    /* center horizontally */
+  padding: 0 20px;   /* equal left-right padding */
+  box-sizing: border-box;
+}
+
+/* Veg Grid */
+/* Center the Veg grid inside the container */
 .veg-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Always 4 columns */
-  gap: 1.5rem; /* spacing between cards */
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+
+  /* Added properties */
+  justify-content: center; /* centers grid when row not full */
+  margin: 0 auto;          /* ensures grid is centered inside container */
 }
+
+/* Optional: make cards consistent on smaller screens */
+@media (max-width: 1200px) {
+  .veg-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 992px) {
+  .veg-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .veg-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
 
 /* Veg card */
 .veg-card {

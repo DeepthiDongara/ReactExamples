@@ -112,3 +112,8 @@ button:hover {
   .cart-image { width: 120px; height: 120px; margin-bottom: 10px; }
   button { width: 100%; margin-bottom: 12px; }
 }
+.error-border {
+  border: 2px solid red !important;
+  background: #ffecec;
+}
+

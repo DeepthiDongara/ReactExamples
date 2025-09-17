@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom"; // 👈 added useLocation
 import { useDispatch, useSelector } from "react-redux";
 import { login, clearError } from "./store"; // ✅ import from store.js
 import "./signin.css"; // Use the same styling as signup page
 
 function SignIn() {
   const navigate = useNavigate();
+  const location = useLocation(); // 👈 added
   const dispatch = useDispatch();
   const error = useSelector((state) => state.auth.error);
   const currentUser = useSelector((state) => state.auth.currentUser);
+
+  // 👇 check where user came from, default "/"
+  const from = location.state?.from || "/"; // 👈 added
 
   const [formData, setFormData] = useState({ username: "", password: "" });
 
@@ -25,9 +29,9 @@ function SignIn() {
   // ✅ Redirect when login is successful
   useEffect(() => {
     if (currentUser) {
-      navigate("/");
+      navigate(from); // 👈 changed to go back to Cart if redirected
     }
-  }, [currentUser, navigate]);
+  }, [currentUser, navigate, from]);
 
   return (
     <div className="auth-wrapper">
@@ -38,17 +42,17 @@ function SignIn() {
         {error && <div className="error">{error}</div>}
 
         <form onSubmit={handleSubmit}>
-         <div className="form-group">
-  <label>Username</label>
-  <input
-    name="username"
-    type="text"
-    value={formData.username}
-    onChange={handleChange}
-    placeholder="Enter your username"
-    required
-  />
-</div>
+          <div className="form-group">
+            <label>Username</label>
+            <input
+              name="username"
+              type="text"
+              value={formData.username}
+              onChange={handleChange}
+              placeholder="Enter your username"
+              required
+            />
+          </div>
 
           <div className="form-group">
             <label>Password</label>
